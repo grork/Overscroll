@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Overscroll by grork</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Overscroll</h1>
+        <p>WinJS UI Control for pull-to-refresh interactions</p>
+
+        <p class="view"><a href="https://github.com/grork/Overscroll">View the Project on GitHub <small>grork/Overscroll</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/grork/Overscroll/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/grork/Overscroll/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/grork/Overscroll">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="overscroller" class="anchor" href="#overscroller"><span class="octicon octicon-link"></span></a>Overscroller</h1>
+
+<p>This is a simple WinJS control to allow a twitter-style pull to refresh in a Windows Store WWA (e.g. HTML/CSS/JS) application.</p>
+
+<h3>
+<a name="basic-usage" class="anchor" href="#basic-usage"><span class="octicon octicon-link"></span></a>Basic Usage</h3>
+
+<p>The basic control is in <code>Codevoid.Controls.Overscroll</code>, which you can just use in your HTML, after including Overscroll.js &amp; Overscroll.css</p>
+
+<p>You can use this in your mark up like so:</p>
+
+<pre><code>&lt;div data-win-control="Codevoid.Controls.Overscroll"&gt;
+&lt;!-- your content --&gt;
+&lt;/div&gt;
+</code></pre>
+
+<h3>
+<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h3>
+
+<p>There are a number of configuration options you can set on the control through the <code>data-win-options</code> attribute.</p>
+
+<h4>
+<a name="snapinterval" class="anchor" href="#snapinterval"><span class="octicon octicon-link"></span></a>snapInterval</h4>
+
+<p>This sets the interval for the mandatory snap point interval. See MSDN's documentation on <a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh466031.aspx">-ms-scroll-snap-points-x</a> for more details.</p>
+
+<p>This is the string literal you would place in the <code>snapInterval</code> property.</p>
+
+<p>Example:</p>
+
+<pre><code>{ snapInterval: "150px" }
+</code></pre>
+
+<h4>
+<a name="refreshpercent" class="anchor" href="#refreshpercent"><span class="octicon octicon-link"></span></a>refreshPercent</h4>
+
+<p>This controls how far into the overscroll region (as a percentage of the whole overscoll area), ranging from 0 to 1.0 (0% to 100%)</p>
+
+<p>Example:</p>
+
+<pre><code>{ refreshPercent: 0.5 } // 50%!
+</code></pre>
+
+<h4>
+<a name="refreshindicatorselector" class="anchor" href="#refreshindicatorselector"><span class="octicon octicon-link"></span></a>refreshIndicatorSelector</h4>
+
+<p>This is the query selector that is used to find where in the overscrol region the <code>&lt;progress /&gt;</code> element is for displaying the progress.</p>
+
+<p>This element will have it's <code>value</code> property set &amp; controlled as part of othe overscroll</p>
+
+<h3>
+<a name="being-notified--handling-overscroll" class="anchor" href="#being-notified--handling-overscroll"><span class="octicon octicon-link"></span></a>Being notified &amp; Handling overscroll</h3>
+
+<p>Overscroll is  signified by the control instance itself raising an <code>overscrolled</code> event, which can be listened to with <code>addEventListener</code> on the control itself. ** This is not a DOM event **, it is a native JavaScript event provided by the <code>WinJS.Utilities.eventMixin</code> mixin.</p>
+
+<p>When this event is raised, one should start their refresh work. When they're work is complete, calling <code>resetOverscrollState</code> will return the UI back to the bottom of the overscroll area.</p>
+
+<p>Example usage:</p>
+
+<pre><code>var scroller = document.getElementById("scroller").winControl;
+scroller.addEventListener("overscrolled", function (e) {
+    WinJS.Promise.timeout(3000).done(function () {
+        e.detail.source.resetOverscrollState();
+    });
+});
+</code></pre>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/grork">grork</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
